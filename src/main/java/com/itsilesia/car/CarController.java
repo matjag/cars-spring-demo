@@ -1,6 +1,6 @@
 package com.itsilesia.car;
 
-import com.itsilesia.car.exceptions.CarNotFoundException;
+import com.itsilesia.car.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +37,7 @@ public class CarController {
     Car find(@PathVariable Long id) {
 
         return repository.findById(id)
-                .orElseThrow(() -> new CarNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException(id, Car.class));
     }
 
     @PutMapping("/{id}")
@@ -49,14 +49,14 @@ public class CarController {
                     car.setPower(newCar.getPower() == null ? car.getPower() : newCar.getPower());
                     return repository.save(car);
                 })
-                .orElseThrow(() -> new CarNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException(id, Car.class));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable Long id) {
         repository.delete(repository.findById(id)
-                .orElseThrow(() -> new CarNotFoundException(id))
+                .orElseThrow(() -> new NotFoundException(id, Car.class))
         );
 
     }

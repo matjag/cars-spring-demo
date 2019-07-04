@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class CarNotFoundException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
 
-    public CarNotFoundException(Long id) {
-        super("Could not find car " + id);
+    public NotFoundException(Long id, Class<?> cls) {
+        super("Could not find  " + cls.toString() + " of id " + id);
     }
 }

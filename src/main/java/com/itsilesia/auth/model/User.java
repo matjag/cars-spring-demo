@@ -15,10 +15,6 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
-    @Column(name = "FIRST_NAME")
-    private String firstName;
-    @Column(name = "LAST_NAME")
-    private String lastName;
     @Column(name = "USERNAME")
     private String username;
     @Column(name = "PASSWORD")
@@ -45,22 +41,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -91,8 +71,6 @@ public class User {
         UserDto userDto = new UserDto();
         userDto.setId(this.id);
         userDto.setEmail(this.email);
-        userDto.setFirstName(this.firstName);
-        userDto.setLastName(this.lastName);
         userDto.setUsername(this.username);
         userDto.setRole(this.roles.stream().map(role -> role.getName().toString()).collect(Collectors.toList()));
         return userDto;
