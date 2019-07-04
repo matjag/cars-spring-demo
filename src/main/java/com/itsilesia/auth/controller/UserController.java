@@ -1,7 +1,6 @@
 package com.itsilesia.auth.controller;
 
 
-import com.itsilesia.auth.dto.ApiResponse;
 import com.itsilesia.auth.dto.UserDto;
 import com.itsilesia.auth.model.User;
 import com.itsilesia.auth.service.AuthenticationFacadeService;
