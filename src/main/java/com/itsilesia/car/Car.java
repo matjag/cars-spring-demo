@@ -2,26 +2,18 @@ package com.itsilesia.car;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "Cars")
 public class Car {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String brand;
     private Integer power;
 
-    Car() {
-    }
-
-    Car(String brand, Integer power) {
-        this.brand = brand;
-        this.power = power;
-    }
 }
