@@ -2,6 +2,7 @@ package com.itsilesia.car;
 
 import com.itsilesia.car.exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class CarController {
         this.repository = repository;
     }
 
+    @Secured("ROLE_CAR_LIST")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     List<Car> list() {
@@ -26,12 +28,14 @@ public class CarController {
                 .collect(Collectors.toList());
     }
 
+    @Secured("ROLE_CAR_CREATE")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     Car create(@RequestBody Car newCar) {
         return repository.save(newCar);
     }
 
+    @Secured("ROLE_CAR_GET")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     Car find(@PathVariable Long id) {
@@ -40,6 +44,7 @@ public class CarController {
                 .orElseThrow(() -> new NotFoundException(id, Car.class));
     }
 
+    @Secured("ROLE_CAR_UPDATE")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     Car update(@RequestBody Car newCar, @PathVariable Long id) {
@@ -52,6 +57,7 @@ public class CarController {
                 .orElseThrow(() -> new NotFoundException(id, Car.class));
     }
 
+    @Secured("ROLE_CAR_DELETE")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable Long id) {

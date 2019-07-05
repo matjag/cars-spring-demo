@@ -90,8 +90,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
         List<RoleType> roleTypes = new ArrayList<>();
         userDto.getRole().stream().map(role -> roleTypes.add(RoleType.valueOf(role)));
+
         user.setRoles(roleDao.find(userDto.getRole()));
         userDao.save(user);
         return user;

@@ -25,7 +25,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private static final String SCOPE_READ = "read";
     private static final String SCOPE_WRITE = "write";
     private static final String TRUST = "trust";
-src/        
+
     @Autowired
     private AuthenticationManager authenticationManager;
 

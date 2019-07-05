@@ -16,17 +16,10 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-
-    public static final String ROLE_ADMIN = "ROLE_ADMIN";
-    public static final String ROLE_USER = "ROLE_USER";
-
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AuthenticationFacadeService authenticationFacadeService;
-
-
+   // @Secured("ROLE_USER_LIST")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> list() {
@@ -34,21 +27,21 @@ public class UserController {
     }
 
 
-    @Secured({ROLE_ADMIN})
+    @Secured("ROLE_USER_CREATE")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody UserDto user) {
         return userService.save(user);
     }
 
-    @Secured({ROLE_ADMIN, ROLE_USER})
+    @Secured("ROLE_USER_GET")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User getUser(@PathVariable long id) {
         return userService.findOne(id);
     }
 
-    @Secured({ROLE_ADMIN})
+    @Secured("ROLE_USER_DELETE")
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "id") Long id) {

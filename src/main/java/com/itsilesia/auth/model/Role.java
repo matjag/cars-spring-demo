@@ -1,11 +1,14 @@
 package com.itsilesia.auth.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "ROLES")
 public class Role {
 
@@ -17,6 +20,8 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(name = "NAME")
     private RoleType name;
-    @Column(name = "DESCRIPTION")
-    private String description;
+
+    public Role(RoleType name){
+        this.name = name;
+    }
 }
