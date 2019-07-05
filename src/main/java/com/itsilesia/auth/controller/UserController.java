@@ -1,6 +1,5 @@
 package com.itsilesia.auth.controller;
 
-
 import com.itsilesia.auth.dto.UserDto;
 import com.itsilesia.auth.model.User;
 import com.itsilesia.auth.service.UserService;
@@ -19,13 +18,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
     @Secured("ROLE_USER_LIST")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> list() {
         return userService.findAll();
     }
-
 
     @Secured("ROLE_USER_CREATE")
     @PostMapping
@@ -41,14 +40,12 @@ public class UserController {
         return userService.findOne(id);
     }
 
-
     @Secured("ROLE_USER_UPDATE")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User update(@RequestBody UserDto newUser, @PathVariable Long id) {
         return userService.update(newUser, id);
     }
-
 
     @Secured("ROLE_USER_DELETE")
     @DeleteMapping(value = "/{id}")

@@ -61,30 +61,21 @@ public class UserService implements UserDetailsService {
     }
 
     public User findOne(long id) {
-        return userDao.findById(id).get();
+        return userDao.findById(id).orElseThrow(() -> new NotFoundException(id, User.class));
     }
 
     public void delete(long id) {
-        userDao.deleteById(id);
+        userDao.delete(userDao.findById(id)
+                .orElseThrow(() -> new NotFoundException(id, User.class))
+        );
     }
 
     public User save(UserDto userDto) {
-//        User userWithDuplicateUsername = userDao.findByUsername(userDto.getUsername());
-//        if(userWithDuplicateUsername != null && userDto.getId() != userWithDuplicateUsername.getId()) {
-//            throw new RuntimeException("Duplicate username.");
-//        }
-//        User userWithDuplicateEmail = userDao.findByEmail(userDto.getEmail());
-//        if(userWithDuplicateEmail != null && userDto.getId() != userWithDuplicateEmail.getId()) {
-//            throw new RuntimeException("Duplicate email.");
-//        }
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setUsername(userDto.getUsername());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-
-        List<RoleType> roleTypes = new ArrayList<>();
-        userDto.getRole().stream().map(role -> roleTypes.add(RoleType.valueOf(role)));
-        user.setRoles(roleDao.find(userDto.getRole()));
+        mapRoles(user, userDto);
         userDao.save(user);
 
         return user;
@@ -98,9 +89,7 @@ public class UserService implements UserDetailsService {
                             user.setPassword(userDto.getPassword() != null ? userDto.getPassword() : user.getPassword());
 
                             if (userDto.getRole() != null) {
-                                List<RoleType> roleTypes = new ArrayList<>();
-                                userDto.getRole().stream().map(role -> roleTypes.add(RoleType.valueOf(role)));
-                                user.setRoles(roleDao.find(userDto.getRole()));
+                                mapRoles(user, userDto);
                             }
                             return userDao.save(user);
                         }
@@ -108,9 +97,13 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new NotFoundException(id, UserDto.class));
     }
 
+    private List<RoleType> mapRoles(User user, UserDto userDto) {
+        List<RoleType> roleTypes = new ArrayList<>();
+        userDto.getRole().stream().map(role -> roleTypes.add(RoleType.valueOf(role)));
+        user.setRoles(roleDao.find(userDto.getRole()));
 
-//        userDao.save(user);
-//        return user;
+        return roleTypes;
+    }
 }
 
 
