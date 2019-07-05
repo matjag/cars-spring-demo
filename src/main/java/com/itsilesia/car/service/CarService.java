@@ -1,5 +1,7 @@
 package com.itsilesia.car.service;
 
+import com.itsilesia.car.dto.CarSaveDto;
+import com.itsilesia.car.dto.CarUpdateDto;
 import com.itsilesia.car.model.Car;
 import com.itsilesia.car.dao.CarDao;
 import com.itsilesia.exceptions.NotFoundException;
@@ -33,15 +35,16 @@ public class CarService {
         );
     }
 
-    public Car save(Car newCar) {
+    public Car save(CarSaveDto carSaveDto) {
+        Car newCar = new Car(carSaveDto.getBrand(), carSaveDto.getPower());
         return carDao.save(newCar);
     }
 
-    public Car update(Car newCar, Long id) {
+    public Car update(CarUpdateDto carUpdateDto, Long id) {
         return carDao.findById(id)
                 .map(car -> {
-                    car.setBrand(newCar.getBrand() == null ? car.getBrand() : newCar.getBrand());
-                    car.setPower(newCar.getPower() == null ? car.getPower() : newCar.getPower());
+                    car.setBrand(carUpdateDto.getBrand() == null ? car.getBrand() : carUpdateDto.getBrand());
+                    car.setPower(carUpdateDto.getPower() == null ? car.getPower() : carUpdateDto.getPower());
                     return carDao.save(car);
                 })
                 .orElseThrow(() -> new NotFoundException(id, Car.class));

@@ -1,5 +1,7 @@
 package com.itsilesia.car.controller;
 
+import com.itsilesia.car.dto.CarSaveDto;
+import com.itsilesia.car.dto.CarUpdateDto;
 import com.itsilesia.car.model.Car;
 import com.itsilesia.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,8 @@ public class CarController {
     @Secured("ROLE_CAR_CREATE")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Car create(@Valid @RequestBody Car newCar) {
-        return carService.save(newCar);
+    public Car create(@Valid @RequestBody CarSaveDto carSaveDto) {
+        return carService.save(carSaveDto);
     }
 
     @Secured("ROLE_CAR_GET")
@@ -42,8 +44,8 @@ public class CarController {
     @Secured("ROLE_CAR_UPDATE")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Car update(@RequestBody Car newCar, @PathVariable Long id) {
-        return carService.update(newCar, id);
+    public Car update(@RequestBody CarUpdateDto carUpdateDto, @PathVariable Long id) {
+        return carService.update(carUpdateDto, id);
     }
 
     @Secured("ROLE_CAR_DELETE")

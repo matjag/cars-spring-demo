@@ -1,6 +1,7 @@
 package com.itsilesia.auth.controller;
 
-import com.itsilesia.auth.dto.UserDto;
+import com.itsilesia.auth.dto.UserSaveDto;
+import com.itsilesia.auth.dto.UserUpdateDto;
 import com.itsilesia.auth.model.User;
 import com.itsilesia.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,15 @@ public class UserController {
     @Secured("ROLE_USER_LIST")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDto> list() {
+    public List<User> list() {
         return userService.findAll();
     }
 
     @Secured("ROLE_USER_CREATE")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User create(@Valid @RequestBody UserDto user) {
-        return userService.save(user);
+    public User create(@Valid @RequestBody UserSaveDto userSaveDto) {
+        return userService.save(userSaveDto);
     }
 
     @Secured("ROLE_USER_GET")
@@ -43,8 +44,8 @@ public class UserController {
     @Secured("ROLE_USER_UPDATE")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public User update(@RequestBody UserDto newUser, @PathVariable Long id) {
-        return userService.update(newUser, id);
+    public User update(@RequestBody UserUpdateDto userUpdateDto, @PathVariable Long id) {
+        return userService.update(userUpdateDto, id);
     }
 
     @Secured("ROLE_USER_DELETE")

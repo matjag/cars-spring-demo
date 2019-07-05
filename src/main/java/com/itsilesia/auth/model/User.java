@@ -1,12 +1,10 @@
 package com.itsilesia.auth.model;
 
-
-import com.itsilesia.auth.dto.UserDto;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -17,21 +15,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     private String username;
+    @NotNull
     private String password;
+    @NotNull
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_Roles",
             joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles;
-
-    public UserDto toUserDto() {
-        UserDto userDto = new UserDto();
-        userDto.setId(this.id);
-        userDto.setEmail(this.email);
-        userDto.setUsername(this.username);
-        userDto.setRole(this.roles.stream().map(role -> role.getName().toString()).collect(Collectors.toList()));
-        return userDto;
-    }
 }

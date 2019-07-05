@@ -1,9 +1,10 @@
 package com.itsilesia.auth.service;
 
-
 import com.itsilesia.auth.dao.RoleDao;
 import com.itsilesia.auth.dao.UserDao;
 import com.itsilesia.auth.dto.UserDto;
+import com.itsilesia.auth.dto.UserSaveDto;
+import com.itsilesia.auth.dto.UserUpdateDto;
 import com.itsilesia.auth.model.Role;
 import com.itsilesia.auth.model.RoleType;
 import com.itsilesia.auth.model.User;
@@ -54,9 +55,9 @@ public class UserService implements UserDetailsService {
         return authorities;
     }
 
-    public List<UserDto> findAll() {
-        List<UserDto> users = new ArrayList<>();
-        userDao.findAll().iterator().forEachRemaining(user -> users.add(user.toUserDto()));
+    public List<User> findAll() {
+        List<User> users = new ArrayList<>();
+        userDao.findAll().iterator().forEachRemaining(user -> users.add(user));
         return users;
     }
 
@@ -70,31 +71,31 @@ public class UserService implements UserDetailsService {
         );
     }
 
-    public User save(UserDto userDto) {
+    public User save(UserSaveDto userSaveDto) {
         User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        mapRoles(user, userDto);
+        user.setEmail(userSaveDto.getEmail());
+        user.setUsername(userSaveDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userSaveDto.getPassword()));
+        mapRoles(user, userSaveDto);
         userDao.save(user);
 
         return user;
     }
 
-    public User update(UserDto userDto, Long id) {
+    public User update(UserUpdateDto userUpdateDto, Long id) {
         return userDao.findById(id)
                 .map(user -> {
-                            user.setEmail(userDto.getEmail() != null ? userDto.getEmail() : user.getEmail());
-                            user.setUsername(userDto.getUsername() != null ? userDto.getUsername() : user.getUsername());
-                            user.setPassword(userDto.getPassword() != null ? userDto.getPassword() : user.getPassword());
+                            user.setEmail(userUpdateDto.getEmail() != null ? userUpdateDto.getEmail() : user.getEmail());
+                            user.setUsername(userUpdateDto.getUsername() != null ? userUpdateDto.getUsername() : user.getUsername());
+                            user.setPassword(userUpdateDto.getPassword() != null ? userUpdateDto.getPassword() : user.getPassword());
 
-                            if (userDto.getRole() != null) {
-                                mapRoles(user, userDto);
+                            if (userUpdateDto.getRole() != null) {
+                                mapRoles(user, userUpdateDto);
                             }
                             return userDao.save(user);
                         }
                 )
-                .orElseThrow(() -> new NotFoundException(id, UserDto.class));
+                .orElseThrow(() -> new NotFoundException(id, User.class));
     }
 
     private List<RoleType> mapRoles(User user, UserDto userDto) {
