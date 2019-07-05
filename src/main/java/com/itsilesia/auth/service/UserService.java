@@ -7,6 +7,7 @@ import com.itsilesia.auth.dto.UserDto;
 import com.itsilesia.auth.model.Role;
 import com.itsilesia.auth.model.RoleType;
 import com.itsilesia.auth.model.User;
+import com.itsilesia.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -83,9 +84,33 @@ public class UserService implements UserDetailsService {
 
         List<RoleType> roleTypes = new ArrayList<>();
         userDto.getRole().stream().map(role -> roleTypes.add(RoleType.valueOf(role)));
-
         user.setRoles(roleDao.find(userDto.getRole()));
         userDao.save(user);
+
         return user;
     }
+
+    public User update(UserDto userDto, Long id) {
+        return userDao.findById(id)
+                .map(user -> {
+                            user.setEmail(userDto.getEmail() != null ? userDto.getEmail() : user.getEmail());
+                            user.setUsername(userDto.getUsername() != null ? userDto.getUsername() : user.getUsername());
+                            user.setPassword(userDto.getPassword() != null ? userDto.getPassword() : user.getPassword());
+
+                            if (userDto.getRole() != null) {
+                                List<RoleType> roleTypes = new ArrayList<>();
+                                userDto.getRole().stream().map(role -> roleTypes.add(RoleType.valueOf(role)));
+                                user.setRoles(roleDao.find(userDto.getRole()));
+                            }
+                            return userDao.save(user);
+                        }
+                )
+                .orElseThrow(() -> new NotFoundException(id, UserDto.class));
+    }
+
+
+//        userDao.save(user);
+//        return user;
 }
+
+

@@ -8,16 +8,14 @@ import javax.persistence.*;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "ROLES")
+@Table(name = "Roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "NAME")
     private RoleType name;
 
     public Role(RoleType name) {

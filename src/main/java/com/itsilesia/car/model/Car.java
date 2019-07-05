@@ -1,4 +1,4 @@
-package com.itsilesia.car;
+package com.itsilesia.car.model;
 
 import lombok.Data;
 

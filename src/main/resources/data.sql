@@ -8,6 +8,7 @@ INSERT INTO test.USER_ROLES(USER_ID,ROLE_ID) values (1,6);
 INSERT INTO test.USER_ROLES(USER_ID,ROLE_ID) values (1,7);
 INSERT INTO test.USER_ROLES(USER_ID,ROLE_ID) values (1,8);
 INSERT INTO test.USER_ROLES(USER_ID,ROLE_ID) values (1,9);
+INSERT INTO test.USER_ROLES(USER_ID,ROLE_ID) values (1,10);
 
 INSERT INTO test.cars (brand, power) values ('Mazda', 110);
 INSERT INTO test.cars (brand, power) values ('Audi', 140);

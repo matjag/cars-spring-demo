@@ -15,17 +15,14 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private long id;
-    @Column(name = "USERNAME")
+
     private String username;
-    @Column(name = "PASSWORD")
     private String password;
-    @Column(name = "EMAIL")
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "User_ROLES",
+    @JoinTable(name = "User_Roles",
             joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> roles;
 

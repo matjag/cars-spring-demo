@@ -6,6 +6,7 @@ public enum RoleType {
     USER_LIST,
     USER_GET,
     USER_DELETE,
+    USER_UPDATE,
 
     CAR_LIST,
     CAR_CREATE,

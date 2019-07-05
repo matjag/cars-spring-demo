@@ -13,13 +13,13 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    // @Secured("ROLE_USER_LIST")
+    @Secured("ROLE_USER_LIST")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> list() {
@@ -40,6 +40,15 @@ public class UserController {
     public User getUser(@PathVariable long id) {
         return userService.findOne(id);
     }
+
+
+    @Secured("ROLE_USER_UPDATE")
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User update(@RequestBody UserDto newUser, @PathVariable Long id) {
+        return userService.update(newUser, id);
+    }
+
 
     @Secured("ROLE_USER_DELETE")
     @DeleteMapping(value = "/{id}")

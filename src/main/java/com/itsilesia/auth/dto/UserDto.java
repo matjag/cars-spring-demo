@@ -2,7 +2,6 @@ package com.itsilesia.auth.dto;
 
 
 import lombok.Data;
-
 import java.util.List;
 
 @Data
