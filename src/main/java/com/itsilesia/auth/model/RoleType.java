@@ -2,8 +2,8 @@ package com.itsilesia.auth.model;
 
 public enum RoleType {
 
-    USER_LIST,
     USER_CREATE,
+    USER_LIST,
     USER_GET,
     USER_DELETE,
 

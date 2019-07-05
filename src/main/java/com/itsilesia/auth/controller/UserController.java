@@ -3,13 +3,13 @@ package com.itsilesia.auth.controller;
 
 import com.itsilesia.auth.dto.UserDto;
 import com.itsilesia.auth.model.User;
-import com.itsilesia.auth.service.AuthenticationFacadeService;
 import com.itsilesia.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-   // @Secured("ROLE_USER_LIST")
+    // @Secured("ROLE_USER_LIST")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<UserDto> list() {
@@ -30,7 +30,7 @@ public class UserController {
     @Secured("ROLE_USER_CREATE")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User create(@RequestBody UserDto user) {
+    public User create(@Valid @RequestBody UserDto user) {
         return userService.save(user);
     }
 

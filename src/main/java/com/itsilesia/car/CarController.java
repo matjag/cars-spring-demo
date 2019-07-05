@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,7 +32,7 @@ public class CarController {
     @Secured("ROLE_CAR_CREATE")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Car create(@RequestBody Car newCar) {
+    Car create(@Valid @RequestBody Car newCar) {
         return repository.save(newCar);
     }
 

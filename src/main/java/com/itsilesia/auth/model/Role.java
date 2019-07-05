@@ -1,6 +1,5 @@
 package com.itsilesia.auth.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
 
@@ -21,7 +20,7 @@ public class Role {
     @Column(name = "NAME")
     private RoleType name;
 
-    public Role(RoleType name){
+    public Role(RoleType name) {
         this.name = name;
     }
 }
