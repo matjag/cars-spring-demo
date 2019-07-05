@@ -1,5 +1,6 @@
 package com.itsilesia.auth.dto;
 
+import com.itsilesia.auth.dto.validator.UniqueUsername;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;
@@ -10,6 +11,7 @@ import java.util.List;
 public class UserSaveDto implements UserDto {
 
     @NotNull
+    @UniqueUsername
     private String username;
     @NotNull
     private String password;

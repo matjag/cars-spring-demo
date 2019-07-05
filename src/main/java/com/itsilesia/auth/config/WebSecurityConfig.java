@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 @EnableResourceServer
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "userService")
     private UserDetailsService userDetailsService;

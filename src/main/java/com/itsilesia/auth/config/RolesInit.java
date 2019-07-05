@@ -8,15 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RolesInitializer implements InitializingBean {
-
+public class RolesInit implements InitializingBean {
 
     @Autowired
     private RoleDao roleDao;
 
     @Override
     public void afterPropertiesSet() {
-
         for (RoleType roleType : RoleType.values()) {
             Role role = new Role(roleType);
             roleDao.save(role);

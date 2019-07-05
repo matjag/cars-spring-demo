@@ -44,7 +44,7 @@ public class CarController {
     @Secured("ROLE_CAR_UPDATE")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Car update(@RequestBody CarUpdateDto carUpdateDto, @PathVariable Long id) {
+    public Car update(@Valid @RequestBody CarUpdateDto carUpdateDto, @PathVariable Long id) {
         return carService.update(carUpdateDto, id);
     }
 

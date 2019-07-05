@@ -14,14 +14,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @NotNull
     private String username;
     @NotNull
     private String password;
     @NotNull
     private String email;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "User_Roles",
             joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))

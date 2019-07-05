@@ -44,7 +44,7 @@ public class UserController {
     @Secured("ROLE_USER_UPDATE")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public User update(@RequestBody UserUpdateDto userUpdateDto, @PathVariable Long id) {
+    public User update(@Valid @RequestBody UserUpdateDto userUpdateDto, @PathVariable Long id) {
         return userService.update(userUpdateDto, id);
     }
 

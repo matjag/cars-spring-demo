@@ -1,6 +1,5 @@
 package com.itsilesia.auth.dao;
 
-
 import com.itsilesia.auth.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
