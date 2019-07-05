@@ -16,8 +16,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private static final String CLIENT_ID = "client";
-    private static final String CLIENT_SECRET = "$2a$12$0S9UUN.cpiQTE5sP.uzlZOx8MNCBDDwi7fyvjOn55H7JJ.wT8ufDW";//"client"
+    private static final String CLIENT_ID = "cars-client";
+    private static final String CLIENT_SECRET = "$2a$12$FYyJrV1k3Gt6AWUQr3oR6e3n7m4erY0frw.yrDEmjMoZQUrqFpzyC";//"cars-secret"
     private static final String GRANT_TYPE_PASSWORD = "password";
     private static final String AUTHORIZATION_CODE = "authorization_code";
     private static final String REFRESH_TOKEN = "refresh_token";
@@ -25,7 +25,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private static final String SCOPE_READ = "read";
     private static final String SCOPE_WRITE = "write";
     private static final String TRUST = "trust";
-
+src/        
     @Autowired
     private AuthenticationManager authenticationManager;
 
